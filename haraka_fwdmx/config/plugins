@@ -1,0 +1,8 @@
+daemonize
+dnsbl
+data.rfc5322_header_checks
+helo.checks
+mail_from.access
+mail_from.is_resolvable
+max_unrecognized_commands
+fwdmx

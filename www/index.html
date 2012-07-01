@@ -1,0 +1,60 @@
+<!doctype html>
+<html>
+<head>
+<title>Forwarding MX: Fast, Webhook-enabled Mail Forwarding For Your Project</title>
+<style>
+.dnsconf {
+   font-family: monospace;
+   background:black; color:#00ff00;
+   padding:1em 1em 1em 2em; line-height:1.5em;
+   margin-bottom:1em;}
+.comment { padding-top: 0.5em; color: #009000; }
+</style>
+<script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
+</head>
+<body>
+<h1>Forwarding MX</h1>
+<p>
+<font color=red><b>June 30, 2012</b>: This service is in progress and does not work yet.</font>
+</p>
+<p>Setting up a new project and just wish you had a simple MX that could
+forward mail to your existing email addresses instead of needing to set up
+an error-prone Google Apps for your Domain instance? Well - problem solved.
+Just point your domain's MX records to fwdmx.com and create a 'fwdmx' TXT
+entry for your domain with the email addresses you want us to forward to.<p>
+<h2>Example</h2>
+<p>For <input name="domain" id="domaininput" value="MyCoolProject.com" />, configure
+your domain as follows:
+<div class="dnsconf">
+<div class="comment"># Point all mail service for @<span class="domain">MyCoolProject.com</span> to the FwdMX service.</div>
+<span class="domain">MyCoolProject.com</span> MX 10 FwdMX.com.
+
+<div class="comment"># Set up a catch-all for *@<span class="domain">MyCoolProject.com</span> to forward to myemail@gmail.com.</div>
+_fwdmx.<span class="domain">MyCoolProject.com</span> TXT "mailto:myemail@gmail.com"
+
+<div class="comment"># Forward team@<span class="domain">MyCoolProject.com</span> to both Nathan and David.</div>
+team._fwdmx.<span class="domain">MyCoolProject.com</span> TXT "mailto:nathan@gmail.com,david@gmail.com"
+
+<div class="comment"># Email sent to app@<span class="domain">MyCoolProject.com</span> should POST the content to a URL of my choosing.</div>
+app._fwdmx.<span class="domain">MyCoolProject.com</span> TXT "http://<span class="domain">MyCoolProject.com</span>/receiveMail.php"
+
+</div>
+The above setup would send all email for <span class="domain">MyCoolProject.com</span> to fwdmx.com; our
+service would then lookup the fwdmx TXT record for your domain and if
+found, would forward all email received to that address.
+</p>
+<p>
+<strong>
+Please note that we do not perform any spam filtering on inbound messages.
+</strong>
+Consequently, please whitelist email from FwdMx.com.
+</p>
+<script>
+$(function(){
+  $("#domaininput").keyup(function() {
+    $(".domain").text($("#domaininput").val());
+  });
+});
+</script>
+</body>
+</html>
