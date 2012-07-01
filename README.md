@@ -10,4 +10,4 @@ Forwarding.MX uses [Haraka](http://haraka.github.com/),
 a high-performance SMTP server built on [NodeJS](http://nodejs.org/),
 so you must have Haraka installed before attempting to configure Forwarding.MX.
 
-See [Forwarding.MX.com](http://Forwarding.MX.com/) for more details.
+See [Forwarding.MX](http://Forwarding.MX/) for more details.
