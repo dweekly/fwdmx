@@ -1,4 +1,4 @@
-// This Haraka 'plugin' implements the FwdMX service.
+// This Haraka 'plugin' implements the Forwarding.MX service.
 
 var dns = require('dns');
 var http = require('http');
@@ -121,7 +121,7 @@ exports.fwdmx_onQueue = function (next, connection) {
       var new_rcpt_to = [];
       var emails = fwd.substring(7).split(',');
       emails.forEach(function(e){ new_rcpt_to.push(new Address(e)); });
-      t.add_header('X-FwdMX-Original-RCPT', t.rcpt_to.join());
+      t.add_header('X-ForwardingMX-Original-RCPT', t.rcpt_to.join());
       t.add_header('X-Forwarded-To', emails.join());
       t.add_header('Resent-Sender', emails.join());
       t.rcpt_to = new_rcpt_to;
@@ -144,7 +144,7 @@ exports.register = function () {
 
 exports.hook_rcpt = function (next, connection, params) {
   haraka = this;
-  haraka.loginfo("Checking " + params[0] + " FwdMX records");
+  haraka.loginfo("Checking " + params[0] + " _fwdmx records");
   getFwdList(params[0], function(fwds){
     if(fwds.length == 0) {
       next(DENY, 'WTF?! I do not know how to deliver to that address.');
